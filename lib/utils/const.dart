@@ -13,8 +13,8 @@ class Constants {
   static Color darkBackground = Colors.black;
 
   static Color grey = Color(0xff454955);
-  static Color textPrimary = Color(0xFF486581);
-  static Color textDark = Color(0xFF102A43);
+  static Color textPrimary = Color(0xFF93DD2C);
+  static Color textDark = Color(0xFF0D0A0B);
 
   static Color backgroundColor = Color(0xfff3eff5);
 
