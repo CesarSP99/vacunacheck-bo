@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import 'package:verificador_carnet_de_vacunacion_bo/views/qr_scan.dart';
 import '../widgets/custom_text_button.dart';
 import '../utils/const.dart';
 
@@ -19,8 +20,11 @@ class HomePage extends StatelessWidget {
     print('hola');
   }
 
-  void onQRPressed() {
-    print('hola');
+  void onQRPressed(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => QRScan()),
+    );
   }
 
   HomePage({Key? key}) : super(key: key);
@@ -77,7 +81,7 @@ class HomePage extends StatelessWidget {
                         CustomTextButton(
                           icon: options[1]['icon'],
                           text: options[1]['text'],
-                          onPressedAction: onQRPressed,
+                          onPressedAction: () => {onQRPressed(context)},
                         ),
                       ],
                     ),
