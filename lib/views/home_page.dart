@@ -7,12 +7,12 @@ import '../utils/const.dart';
 class HomePage extends StatelessWidget {
   final List<Map<String, dynamic>> options = [
     {
-      'text': 'Manual',
-      'icon': Icons.edit,
-    },
-    {
       'text': 'QR',
       'icon': Icons.qr_code,
+    },
+    {
+      'text': 'Manual',
+      'icon': Icons.edit,
     },
   ];
 
@@ -76,12 +76,12 @@ class HomePage extends StatelessWidget {
                         CustomTextButton(
                           icon: options[0]['icon'],
                           text: options[0]['text'],
-                          onPressedAction: onManualPressed,
+                          onPressedAction: () => {onQRPressed(context)},
                         ),
                         CustomTextButton(
                           icon: options[1]['icon'],
                           text: options[1]['text'],
-                          onPressedAction: () => {onQRPressed(context)},
+                          onPressedAction: onManualPressed,
                         ),
                       ],
                     ),
