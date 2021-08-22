@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import '../utils/const.dart';
 
-class Details extends StatelessWidget {
-  Details({Key? key}) : super(key: key);
+class DetailsScreen extends StatelessWidget {
+  DetailsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

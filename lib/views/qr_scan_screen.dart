@@ -7,12 +7,12 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:wakelock/wakelock.dart';
 import 'details_screen.dart';
 
-class QRScan extends StatefulWidget {
+class QRScanScreen extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _QRScanState();
+  State<StatefulWidget> createState() => _QRScanScreenState();
 }
 
-class _QRScanState extends State<QRScan> {
+class _QRScanScreenState extends State<QRScanScreen> {
   Barcode? result;
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
@@ -142,7 +142,7 @@ class _QRScanState extends State<QRScan> {
                 .toList()));
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => Details()),
+          MaterialPageRoute(builder: (context) => DetailsScreen()),
         );
       } else {
         //Altered QR or fake COVID Vaccination card

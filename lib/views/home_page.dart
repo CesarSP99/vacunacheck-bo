@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
-import 'package:verificador_carnet_de_vacunacion_bo/views/qr_scan.dart';
+import 'package:verificador_carnet_de_vacunacion_bo/views/qr_scan_screen.dart';
 import '../widgets/custom_text_button.dart';
 import '../utils/const.dart';
 
@@ -23,7 +23,7 @@ class HomePage extends StatelessWidget {
   void onQRPressed(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => QRScan()),
+      MaterialPageRoute(builder: (context) => QRScanScreen()),
     );
   }
 
