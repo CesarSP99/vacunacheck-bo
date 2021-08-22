@@ -1,7 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:html/parser.dart';
+import 'package:http/http.dart' as http;
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:wakelock/wakelock.dart';
+import 'details_screen.dart';
 
 class QRScan extends StatefulWidget {
   @override
@@ -20,6 +24,13 @@ class _QRScanState extends State<QRScan> {
       controller!.pauseCamera();
     }
     controller!.resumeCamera();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    //Preventing screen to turn off
+    Wakelock.enable();
   }
 
   @override
@@ -48,7 +59,7 @@ class _QRScanState extends State<QRScan> {
                             child: FutureBuilder(
                               future: controller?.getFlashStatus(),
                               builder: (context, snapshot) {
-                                return Icon(snapshot.data as bool == true
+                                return Icon(snapshot.data.toString() == 'true'
                                     ? Icons.flash_on
                                     : Icons.flash_off);
                               },
@@ -84,7 +95,7 @@ class _QRScanState extends State<QRScan> {
     var scanArea = 250.0;
     return QRView(
       key: qrKey,
-      onQRViewCreated: _onQRViewCreated,
+      onQRViewCreated: (controller) => {_onQRViewCreated(controller, context)},
       overlay: QrScannerOverlayShape(
         borderColor: Colors.green,
         borderRadius: 10,
@@ -96,19 +107,49 @@ class _QRScanState extends State<QRScan> {
     );
   }
 
-  void _onQRViewCreated(QRViewController controller) {
+  void _onQRViewCreated(QRViewController controller, BuildContext context) {
     setState(() {
       this.controller = controller;
     });
-    controller.scannedDataStream.listen((scanData) {
-      setState(() {
-        result = scanData;
-      });
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(builder: (context) => ),
-      // );
+    controller.scannedDataStream
+        .listen((scanData) => {onQRScanSuccesful(scanData, context)});
+  }
+
+  Future<void> onQRScanSuccesful(Barcode scanData, BuildContext context) async {
+    controller!.pauseCamera();
+    setState(() {
+      result = scanData;
     });
+    //Deactivating Wakelock
+    Wakelock.disable();
+    //Checking for valid COVID 19 vaccination QR to call details page
+    if (result!.code
+        .startsWith('https://sus.minsalud.gob.bo/busca_vacuna_dosisqr')) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Validando datos...')),
+      );
+      http.Response response = await http.get(Uri.parse(result!.code));
+      var document = parse(response.body);
+      if (document.getElementsByClassName('panel-body').isNotEmpty) {
+        print(Map.fromIterables(
+            document
+                .getElementsByTagName('dt')
+                .map((e) => e.text.split(':').first)
+                .toList(),
+            document
+                .getElementsByTagName('dd')
+                .map((e) => e.text.split(':').first)
+                .toList()));
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Details()),
+        );
+      } else {
+        //Altered QR or fake COVID Vaccination card
+        showInvalidDialog(context);
+      }
+    }
+    controller!.resumeCamera();
   }
 
   void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
@@ -123,5 +164,29 @@ class _QRScanState extends State<QRScan> {
   void dispose() {
     controller?.dispose();
     super.dispose();
+  }
+
+  void showInvalidDialog(BuildContext buildContext) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Row(children: [
+            Icon(Icons.dangerous),
+            Text("Carnet Falso"),
+          ]),
+          content: Text(
+              "El carnet escaneado no se encuentra registrado en la base de datos del Ministerio"),
+          actions: <Widget>[
+            TextButton(
+              child: Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }
