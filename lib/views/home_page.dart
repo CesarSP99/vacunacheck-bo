@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import 'package:verificador_carnet_de_vacunacion_bo/views/manual_screen.dart';
 import 'package:verificador_carnet_de_vacunacion_bo/views/qr_scan_screen.dart';
 import '../widgets/custom_text_button.dart';
 import '../utils/const.dart';
@@ -16,14 +17,17 @@ class HomePage extends StatelessWidget {
     },
   ];
 
-  void onManualPressed() {
-    print('hola');
-  }
-
   void onQRPressed(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => QRScanScreen()),
+    );
+  }
+
+  void onManualPressed(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ManualScreen()),
     );
   }
 
@@ -41,7 +45,7 @@ class HomePage extends StatelessWidget {
             clipper: OvalBottomBorderClipper(),
             child: Container(
               color: Theme.of(context).accentColor,
-              height: 130 + statusBarHeight,
+              height: 120 + statusBarHeight,
             ),
           ),
           Positioned(
@@ -59,11 +63,11 @@ class HomePage extends StatelessWidget {
             padding: EdgeInsets.all(Constants.paddingSide),
             child: Column(
               children: <Widget>[
-                SizedBox(height: 30),
+                SizedBox(height: 15),
                 Text(
                   'Validador de Carnet de Vacunación',
                   style: TextStyle(
-                      fontSize: 25,
+                      fontSize: 27,
                       fontWeight: FontWeight.w900,
                       color: Colors.white),
                 ),
@@ -76,12 +80,12 @@ class HomePage extends StatelessWidget {
                         CustomTextButton(
                           icon: options[0]['icon'],
                           text: options[0]['text'],
-                          onPressedAction: () => {onQRPressed(context)},
+                          onPressedAction: () => onQRPressed(context),
                         ),
                         CustomTextButton(
                           icon: options[1]['icon'],
                           text: options[1]['text'],
-                          onPressedAction: onManualPressed,
+                          onPressedAction: () => onManualPressed(context),
                         ),
                       ],
                     ),
