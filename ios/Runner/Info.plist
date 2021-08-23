@@ -45,5 +45,10 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Se necesita acceder a la cámara para escanear códigos QR</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>https</string>
+		<string>http</string>
+	</array>
 </dict>
 </plist>
