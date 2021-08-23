@@ -120,8 +120,6 @@ class _QRScanScreenState extends State<QRScanScreen> {
     setState(() {
       result = scanData;
     });
-    //Deactivating Wakelock
-    Wakelock.disable();
     //Checking for valid COVID 19 vaccination QR to call details page
     if (result!.code
         .startsWith('https://sus.minsalud.gob.bo/busca_vacuna_dosisqr')) {
@@ -163,6 +161,8 @@ class _QRScanScreenState extends State<QRScanScreen> {
   @override
   void dispose() {
     controller?.dispose();
+    //Deactivating Wakelock
+    Wakelock.disable();
     super.dispose();
   }
 
