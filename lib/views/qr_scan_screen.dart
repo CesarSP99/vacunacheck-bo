@@ -140,7 +140,7 @@ class _QRScanScreenState extends State<QRScanScreen> {
                 .getElementsByTagName('dd')
                 .map((e) => e.text.split(':').first)
                 .toList()));
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => DetailsScreen()),
         );
