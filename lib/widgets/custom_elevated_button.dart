@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:verificador_carnet_de_vacunacion_bo/utils/const.dart';
 
-class CustomTextButton extends StatelessWidget {
+class CustomElevatedButton extends StatelessWidget {
   final IconData icon;
   final String text;
   final VoidCallback onPressedAction;
 
-  CustomTextButton(
+  CustomElevatedButton(
       {Key? key,
       required this.icon,
       required this.text,
@@ -14,22 +15,28 @@ class CustomTextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
+    return ElevatedButton(
       onPressed: onPressedAction,
       child: Column(
         children: [
           Icon(
             icon,
             size: 100,
+            color: Colors.white,
           ),
           Text(
             text,
-            style: TextStyle(fontSize: 25),
+            style: TextStyle(
+              fontSize: 25,
+              color: Colors.white,
+            ),
           ),
         ],
       ),
       style: TextButton.styleFrom(
+        backgroundColor: Constants.lightGreen,
         alignment: Alignment.center,
+        padding: EdgeInsets.all(20),
       ),
     );
   }
