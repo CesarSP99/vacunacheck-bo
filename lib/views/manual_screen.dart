@@ -168,7 +168,16 @@ class _ManualScreenState extends State<ManualScreen> {
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
-                                        content: Text('Validando datos...')),
+                                      content: Row(
+                                        children: [
+                                          CircularProgressIndicator(),
+                                          SizedBox(
+                                            width: 15,
+                                          ),
+                                          Text('Validando datos...'),
+                                        ],
+                                      ),
+                                    ),
                                   );
                                   Uri uri = Uri.https('sus.minsalud.gob.bo',
                                       '/busca_vacuna_dosisqr', params);
@@ -177,20 +186,24 @@ class _ManualScreenState extends State<ManualScreen> {
                                   if (document
                                       .getElementsByClassName('panel-body')
                                       .isNotEmpty) {
-                                    print(Map.fromIterables(
-                                        document
-                                            .getElementsByTagName('dt')
-                                            .map((e) => e.text.split(':').first)
-                                            .toList(),
-                                        document
-                                            .getElementsByTagName('dd')
-                                            .map((e) => e.text.split(':').first)
-                                            .toList()));
+                                    Map<String, String> details =
+                                        Map.fromIterables(
+                                      document
+                                          .getElementsByTagName('dt')
+                                          .map((e) => e.text.split(':').first)
+                                          .toList(),
+                                      document
+                                          .getElementsByTagName('dd')
+                                          .map((e) => e.text.split(':').first)
+                                          .toList(),
+                                    );
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) =>
-                                              DetailsScreen()),
+                                        builder: (context) => DetailsScreen(
+                                          details: details,
+                                        ),
+                                      ),
                                     );
                                   }
                                   //Altered QR or fake COVID Vaccination card
@@ -221,10 +234,10 @@ class _ManualScreenState extends State<ManualScreen> {
         return AlertDialog(
           title: Row(children: [
             Icon(Icons.dangerous),
-            Text("Carnet Falso"),
+            Text("No encontrado"),
           ]),
           content: Text(
-              "El carnet escaneado no se encuentra registrado en la base de datos del Ministerio"),
+              "No se encuentró un registro con esos datos en la base de datos del Ministerio"),
           actions: <Widget>[
             TextButton(
               child: Text("OK"),

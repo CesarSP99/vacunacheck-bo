@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:html/parser.dart';
 import 'package:http/http.dart' as http;
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:verificador_carnet_de_vacunacion_bo/utils/const.dart';
 import 'package:wakelock/wakelock.dart';
 import 'details_screen.dart';
 
@@ -59,10 +60,16 @@ class _QRScanScreenState extends State<QRScanScreen> {
                             child: FutureBuilder(
                               future: controller?.getFlashStatus(),
                               builder: (context, snapshot) {
-                                return Icon(snapshot.data.toString() == 'true'
-                                    ? Icons.flash_on
-                                    : Icons.flash_off);
+                                return Icon(
+                                  snapshot.data.toString() == 'true'
+                                      ? Icons.flash_on
+                                      : Icons.flash_off,
+                                  color: Colors.white,
+                                );
                               },
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              primary: Constants.lightGreen,
                             ),
                           ),
                         ),
@@ -75,7 +82,13 @@ class _QRScanScreenState extends State<QRScanScreen> {
                               await controller?.flipCamera();
                               setState(() {});
                             },
-                            child: Icon(Icons.flip_camera_android),
+                            child: Icon(
+                              Icons.flip_camera_android,
+                              color: Colors.white,
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              primary: Constants.lightGreen,
+                            ),
                           ),
                         )
                       ],
@@ -123,24 +136,37 @@ class _QRScanScreenState extends State<QRScanScreen> {
     //Checking for valid COVID 19 vaccination QR to call details page
     if (result!.code
         .startsWith('https://sus.minsalud.gob.bo/busca_vacuna_dosisqr')) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Validando datos...')),
-      );
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Row(
+          children: [
+            CircularProgressIndicator(),
+            SizedBox(
+              width: 15,
+            ),
+            Text('Validando datos...'),
+          ],
+        ),
+      ));
       http.Response response = await http.get(Uri.parse(result!.code));
       var document = parse(response.body);
       if (document.getElementsByClassName('panel-body').isNotEmpty) {
-        print(Map.fromIterables(
-            document
-                .getElementsByTagName('dt')
-                .map((e) => e.text.split(':').first)
-                .toList(),
-            document
-                .getElementsByTagName('dd')
-                .map((e) => e.text.split(':').first)
-                .toList()));
+        Map<String, String> details = Map.fromIterables(
+          document
+              .getElementsByTagName('dt')
+              .map((e) => e.text.split(':').first)
+              .toList(),
+          document
+              .getElementsByTagName('dd')
+              .map((e) => e.text.split(':').first)
+              .toList(),
+        );
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => DetailsScreen()),
+          MaterialPageRoute(
+            builder: (context) => DetailsScreen(
+              details: details,
+            ),
+          ),
         );
       } else {
         //Altered QR or fake COVID Vaccination card

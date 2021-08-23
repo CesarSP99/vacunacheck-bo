@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:verificador_carnet_de_vacunacion_bo/views/manual_screen.dart';
 import 'package:verificador_carnet_de_vacunacion_bo/views/qr_scan_screen.dart';
-import '../widgets/custom_text_button.dart';
+import '../widgets/custom_elevated_button.dart';
 import '../utils/const.dart';
 
 class HomePage extends StatelessWidget {
@@ -77,12 +77,12 @@ class HomePage extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        CustomTextButton(
+                        CustomElevatedButton(
                           icon: options[0]['icon'],
                           text: options[0]['text'],
                           onPressedAction: () => onQRPressed(context),
                         ),
-                        CustomTextButton(
+                        CustomElevatedButton(
                           icon: options[1]['icon'],
                           text: options[1]['text'],
                           onPressedAction: () => onManualPressed(context),
