@@ -147,7 +147,8 @@ class _QRScanScreenState extends State<QRScanScreen> {
           ],
         ),
       ));
-      http.Response response = await http.get(Uri.parse(result!.code));
+      Uri uri = Uri.parse(result!.code);
+      http.Response response = await http.get(uri);
       var document = parse(response.body);
       if (document.getElementsByClassName('panel-body').isNotEmpty) {
         Map<String, String> details = Map.fromIterables(
@@ -165,6 +166,7 @@ class _QRScanScreenState extends State<QRScanScreen> {
           MaterialPageRoute(
             builder: (context) => DetailsScreen(
               details: details,
+              url: uri.toString(),
             ),
           ),
         );

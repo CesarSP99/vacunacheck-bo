@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:html/parser.dart';
-import '../utils/const.dart';
+import 'package:pattern_formatter/pattern_formatter.dart';
 import 'package:http/http.dart' as http;
+import '../utils/const.dart';
 
 import 'details_screen.dart';
 
@@ -123,7 +124,7 @@ class _ManualScreenState extends State<ManualScreen> {
                       //Birth Date
                       TextField(
                         controller: fechaDeNacimiento,
-                        keyboardType: TextInputType.datetime,
+                        keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderSide: BorderSide(),
@@ -135,6 +136,9 @@ class _ManualScreenState extends State<ManualScreen> {
                           labelText: "Fecha de Nacimiento",
                           hintText: "dd/mm/aaaa",
                         ),
+                        inputFormatters: [
+                          DateInputFormatter(),
+                        ],
                       ),
                       SizedBox(height: 25),
                       Container(
@@ -202,6 +206,7 @@ class _ManualScreenState extends State<ManualScreen> {
                                       MaterialPageRoute(
                                         builder: (context) => DetailsScreen(
                                           details: details,
+                                          url: uri.toString(),
                                         ),
                                       ),
                                     );
