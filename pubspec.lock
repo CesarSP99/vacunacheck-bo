@@ -297,9 +297,11 @@ packages:
   wakelock:
     dependency: "direct main"
     description:
-      name: wakelock
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: wakelock
+      ref: HEAD
+      resolved-ref: "5661f46b02da444c27326d84d67ed3988587c63a"
+      url: "https://github.com/CesarSP99/wakelock"
+    source: git
     version: "0.5.3+3"
   wakelock_macos:
     dependency: transitive
