@@ -1,13 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../utils/const.dart';
 
-class DetailsScreen extends StatelessWidget {
-  DetailsScreen({Key? key}) : super(key: key);
+class DetailsScreen extends StatefulWidget {
+  final Map<String, String> details;
+  final String url;
 
+  DetailsScreen({Key? key, required this.details, required this.url})
+      : super(key: key);
+
+  @override
+  _DetailsScreenState createState() => _DetailsScreenState();
+}
+
+class _DetailsScreenState extends State<DetailsScreen> {
   @override
   Widget build(BuildContext context) {
     double statusBarHeight = MediaQuery.of(context).padding.top;
+    //List<String> keys = widget.details.keys.toList();
+    //List<String> values = widget.details.values.toList();
 
     return Scaffold(
       backgroundColor: Constants.backgroundColor,
@@ -36,20 +48,33 @@ class DetailsScreen extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 SizedBox(height: 30),
-                Text(
-                  'Detalles del vacunado',
-                  style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.w900,
-                      color: Colors.white),
-                ),
-                SizedBox(height: 70),
-                Container(
-                  child: Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [],
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Detalles del vacunado',
+                      style: TextStyle(
+                          fontSize: 27,
+                          fontWeight: FontWeight.w900,
+                          color: Colors.white),
                     ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.link,
+                        color: Colors.white,
+                      ),
+                      onPressed: _launchURL,
+                      iconSize: 30,
+                    ),
+                  ],
+                ),
+                SizedBox(height: 60),
+                Expanded(
+                  child: ListView(
+                    physics: BouncingScrollPhysics(),
+                    children: [
+                      ...detailsList(widget.details),
+                    ],
                   ),
                 ),
               ],
@@ -59,4 +84,29 @@ class DetailsScreen extends StatelessWidget {
       ),
     );
   }
+
+  List<Widget> detailsList(Map<String, String> details) {
+    List<Widget> listTiles = [];
+    details.forEach((key, value) => listTiles.add(
+          ListTile(
+            leading: Icon(
+              Icons.coronavirus,
+              size: 40,
+            ),
+            title: Text(
+              key.trim(),
+              style: TextStyle(fontSize: 17),
+            ),
+            subtitle: Text(
+              value.trim(),
+              style: TextStyle(fontSize: 15),
+            ),
+          ),
+        ));
+    return listTiles;
+  }
+
+  void _launchURL() async => await canLaunch(widget.url)
+      ? await launch(widget.url)
+      : throw 'Error al abrir $widget.url';
 }
