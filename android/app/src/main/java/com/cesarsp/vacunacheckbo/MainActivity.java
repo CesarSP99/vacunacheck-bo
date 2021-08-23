@@ -1,4 +1,4 @@
-package com.cesarsp.verificador_carnet_de_vacunacion_bo;
+package com.cesarsp.vacunacheckbo;
 
 import io.flutter.embedding.android.FlutterActivity;
 

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.cesarsp.verificador_carnet_de_vacunacion_bo">
+    package="com.cesarsp.vacunacheckbo">
    <application
-        android:label="verificador_carnet_de_vacunacion_bo"
+        android:label="VacunaCheck - BO"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

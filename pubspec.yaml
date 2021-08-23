@@ -1,4 +1,4 @@
-name: verificador_carnet_de_vacunacion_bo
+name: vacunacheck_bolivia
 description: A COVID vaccination card verifier.
 
 # The following line prevents the package from being accidentally published to
@@ -23,10 +23,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   google_fonts: ^2.1.0
   flutter_custom_clippers: ^2.0.0
@@ -44,7 +40,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

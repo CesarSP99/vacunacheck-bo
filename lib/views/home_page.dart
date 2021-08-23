@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
-import 'package:verificador_carnet_de_vacunacion_bo/views/manual_screen.dart';
-import 'package:verificador_carnet_de_vacunacion_bo/views/qr_scan_screen.dart';
+import 'manual_screen.dart';
+import 'qr_scan_screen.dart';
 import '../widgets/custom_elevated_button.dart';
 import '../utils/const.dart';
 

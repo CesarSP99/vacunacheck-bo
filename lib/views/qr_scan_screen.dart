@@ -4,8 +4,8 @@ import 'package:flutter/widgets.dart';
 import 'package:html/parser.dart';
 import 'package:http/http.dart' as http;
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:verificador_carnet_de_vacunacion_bo/utils/const.dart';
 import 'package:wakelock/wakelock.dart';
+import '../utils/const.dart';
 import 'details_screen.dart';
 
 class QRScanScreen extends StatefulWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:verificador_carnet_de_vacunacion_bo/utils/const.dart';
+import '../utils/const.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   final IconData icon;
