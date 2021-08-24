@@ -181,6 +181,7 @@ class _ManualScreenState extends State<ManualScreen> {
                                           Text('Validando datos...'),
                                         ],
                                       ),
+                                      duration: Duration(seconds: 5),
                                     ),
                                   );
                                   Uri uri = Uri.https('sus.minsalud.gob.bo',
@@ -201,6 +202,8 @@ class _ManualScreenState extends State<ManualScreen> {
                                           .map((e) => e.text.split(':').first)
                                           .toList(),
                                     );
+                                    ScaffoldMessenger.of(context)
+                                        .clearSnackBars();
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(

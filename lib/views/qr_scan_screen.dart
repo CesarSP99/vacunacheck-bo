@@ -146,6 +146,7 @@ class _QRScanScreenState extends State<QRScanScreen> {
             Text('Validando datos...'),
           ],
         ),
+        duration: Duration(seconds: 5),
       ));
       Uri uri = Uri.parse(result!.code);
       http.Response response = await http.get(uri);
@@ -161,6 +162,7 @@ class _QRScanScreenState extends State<QRScanScreen> {
               .map((e) => e.text.split(':').first)
               .toList(),
         );
+        ScaffoldMessenger.of(context).clearSnackBars();
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
