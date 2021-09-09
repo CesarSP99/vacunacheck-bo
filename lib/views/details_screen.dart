@@ -29,7 +29,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
             clipper: OvalBottomBorderClipper(),
             child: Container(
               color: Theme.of(context).accentColor,
-              height: 130 + statusBarHeight,
+              height: 120 + statusBarHeight,
             ),
           ),
           Positioned(
@@ -47,7 +47,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
             padding: EdgeInsets.all(Constants.paddingSide),
             child: Column(
               children: <Widget>[
-                SizedBox(height: 30),
+                SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -68,7 +68,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     ),
                   ],
                 ),
-                SizedBox(height: 60),
+                SizedBox(height: 45),
                 Expanded(
                   child: ListView(
                     physics: BouncingScrollPhysics(),

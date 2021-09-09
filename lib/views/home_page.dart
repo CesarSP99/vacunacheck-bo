@@ -63,13 +63,20 @@ class HomePage extends StatelessWidget {
             padding: EdgeInsets.all(Constants.paddingSide),
             child: Column(
               children: <Widget>[
-                SizedBox(height: 15),
-                Text(
-                  'Validador de Carnet de Vacunación',
-                  style: TextStyle(
-                      fontSize: 27,
+                SizedBox(
+                  height: 25,
+                  width: double.infinity,
+                ),
+                Container(
+                  width: double.infinity,
+                  child: Text(
+                    'VacunaCheck - Bolivia',
+                    style: TextStyle(
+                      fontSize: 32,
                       fontWeight: FontWeight.w900,
-                      color: Colors.white),
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
                 SizedBox(height: 70),
                 Container(

@@ -41,7 +41,7 @@ class _ManualScreenState extends State<ManualScreen> {
             clipper: OvalBottomBorderClipper(),
             child: Container(
               color: Theme.of(context).accentColor,
-              height: 95 + statusBarHeight,
+              height: 120 + statusBarHeight,
             ),
           ),
           Positioned(
@@ -60,7 +60,7 @@ class _ManualScreenState extends State<ManualScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                SizedBox(height: 15),
+                SizedBox(height: 25),
                 FittedBox(
                   child: Text(
                     'Consulta Manual',
