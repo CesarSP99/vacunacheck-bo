@@ -86,5 +86,5 @@ flutter_icons:
   image_path_ios: "assets/images/app-icon.png"
   android: true
   ios: true
-  adaptive_icon_background: "#72b01d" # Android 8.0 and above
+  adaptive_icon_background: "#F3EFF5" # Android 8.0 and above
   adaptive_icon_foreground: "assets/images/app-icon-with-padding.png"
